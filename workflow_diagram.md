@@ -1,0 +1,19 @@
+# Academic Paper Analysis Workflow
+
+```mermaid
+graph TD
+    A[📄 load_pdf] --> B[📌 extract_title_authors]
+    B --> C[📝 generate_summary]
+    C --> D[🎯 extract_contributions]
+    D --> E[🔬 analyze_methodology]
+    E --> F[📊 analyze_results]
+    F --> G[✅ identify_advantages]
+    G --> H[❌ identify_disadvantages]
+    H --> I[🎯 write_conclusion]
+    I --> J[📋 compile_review]
+    J --> K[🏁 END]
+    
+    style A fill:#e1f5fe
+    style J fill:#e8f5e8
+    style K fill:#ffebee
+```

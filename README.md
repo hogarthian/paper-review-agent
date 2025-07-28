@@ -58,11 +58,17 @@ export OPENAI_API_KEY="your_openai_api_key_here"
 #### Option B: Local LLM Server (Free, no API key needed)
 Set up a local LLM server that supports OpenAI-compatible API. Popular options:
 
-- **vLLM**: Fast inference server for Llama models
-- **Ollama**: Easy-to-use local LLM runner
-- **text-generation-webui**: Web interface with API support
+- **vLLM Production Stack**: Production-ready deployment with Kubernetes support
 
-Example with vLLM serving Llama-3.1-8B-Instruct:
+**Recommended: vLLM Production Stack**
+For production-grade deployment, use the [vLLM Production Stack](https://docs.vllm.ai/projects/production-stack/en/latest/deployment/crd.html) which provides:
+- Kubernetes deployment with CRDs
+- Load balancing and routing
+- Resource management and monitoring
+- Scalable inference serving
+
+**Simple vLLM Setup (Development)**
+For quick development setup:
 ```bash
 # Install vLLM
 pip install vllm
@@ -85,6 +91,52 @@ Make sure your local server is accessible at `http://localhost:8080` (or your pr
 | **Privacy** | Data sent to OpenAI | Data stays local |
 | **Internet Required** | Yes | No |
 | **Resource Usage** | None | High (GPU/RAM) |
+
+## Workflow Visualization
+
+The Academic Paper Analysis Agent follows a structured 10-step workflow to comprehensively analyze academic papers:
+
+```mermaid
+graph TD
+    A["📄 load_pdf<br/>Load and process PDF"] --> B["📌 extract_title_authors<br/>Extract paper metadata"]
+    B --> C["📝 generate_summary<br/>3-sentence summary"]
+    C --> D["🎯 extract_contributions<br/>Identify major contributions"]
+    D --> E["🔬 analyze_methodology<br/>Summarize methodology"]
+    E --> F["📊 analyze_results<br/>Analyze data results"]
+    F --> G["✅ identify_advantages<br/>Find 3 advantages"]
+    G --> H["❌ identify_disadvantages<br/>Find 3 disadvantages"]
+    H --> I["🎯 write_conclusion<br/>1-2 sentence conclusion"]
+    I --> J["📋 compile_review<br/>Generate final review"]
+    J --> K["🏁 END"]
+    
+    style A fill:#e1f5fe,stroke:#01579b
+    style C fill:#fff3e0,stroke:#e65100
+    style D fill:#f3e5f5,stroke:#4a148c
+    style E fill:#e8f5e8,stroke:#1b5e20
+    style F fill:#fff8e1,stroke:#f57f17
+    style G fill:#e8f5e8,stroke:#2e7d32
+    style H fill:#ffebee,stroke:#c62828
+    style I fill:#f3e5f5,stroke:#6a1b9a
+    style J fill:#e8f5e8,stroke:#1b5e20
+    style K fill:#ffebee,stroke:#d32f2f
+```
+
+### Generate Custom Diagrams
+
+You can also generate workflow diagrams locally:
+
+```bash
+# Generate workflow diagram files
+python3 visualize_workflow.py
+```
+
+This creates:
+- `workflow_diagram.md` - Mermaid diagram for local viewing
+- `workflow.mmd` - Raw Mermaid source file
+
+**Local viewing options:**
+- **VS Code**: Install "Mermaid Preview" extension
+- **Command line**: Install mermaid-cli with `npm install -g @mermaid-js/mermaid-cli`
 
 ## Usage
 
@@ -208,12 +260,16 @@ The agent performs the following analysis steps:
 ```
 paper-review-agent/
 ├── paper-review.py          # Main agent implementation
+├── visualize_workflow.py    # Workflow visualization script
 ├── requirements.txt         # Python dependencies
 ├── activate.sh             # Virtual environment activation script
 ├── .gitignore              # Git ignore rules
 ├── .env                    # API keys (create this)
 ├── papers/                 # Place PDF files here
 ├── reviews/                # Generated reviews saved here
+├── logs/                   # Agent execution logs
+├── workflow_diagram.md     # Generated workflow visualization
+├── workflow.mmd            # Raw Mermaid diagram source
 └── README.md               # This file
 ```
 

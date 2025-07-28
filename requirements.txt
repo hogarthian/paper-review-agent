@@ -5,4 +5,14 @@ langchain-community>=0.0.20
 pypdf>=4.0.0
 openai>=1.0.0
 tiktoken>=0.5.0
-python-dotenv>=1.0.0 
+python-dotenv>=1.0.0
+requests>=2.28.0
+
+# Optional visualization dependencies
+# For generating workflow diagrams and visualizations
+# Install with: pip install graphviz pygraphviz (requires system graphviz)
+# graphviz>=0.20.0
+# pygraphviz>=1.9
+
+# For enhanced Mermaid diagram generation (requires Node.js and npm):
+# npm install -g @mermaid-js/mermaid-cli 
